@@ -1,5 +1,5 @@
 <script setup>
-import {img} from '@/utils'
+import img from'@/utils'
 </script>
 
 <template>

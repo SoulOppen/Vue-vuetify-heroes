@@ -1,10 +1,14 @@
 <script setup>
-import { ref,computed } from 'vue';
+import { ref,computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-import{img} from '@/utils'
+import img from'@/utils'
 const store=useStore();
 const imagen=ref(img)
 const heroes=computed(()=>store.state.heroes)
+const fetchDoc=()=>store.dispatch('fetchFire')
+onMounted(
+ ()=>fetchDoc()
+)
 </script>
 <template>
   <div class="total position-relative">
@@ -12,32 +16,28 @@ const heroes=computed(()=>store.state.heroes)
     <VContainer class="d-flex justify-space-around flex-column position-relative">
       <h2>Héroes</h2>
       <div class="d-flex justify-space-between w-25 bg-gray-darker-1">
-        <VIcon>mdi-shield</VIcon>
+        <VIcon>mdi-shield-half-full</VIcon>
         <VIcon>mdi-crosshairs-gps</VIcon>
         <VIcon>mdi-hospital</VIcon>
         <VIcon>mdi-sword</VIcon>
         <VIcon>mdi-arch</VIcon>
         <VIcon>mdi-hand-back-left</VIcon>
       </div>
-      <VTable class="ma-4 body">
+      <VTable class="my-4 mx-auto body ">
         <thead>
           <tr>
-            <th>Héroe</th>
-            <th>Nombre</th>
-            <th>Función</th>
-            <th>Título</th>
-            <th>Ataque</th>
+            <th class="text-center">Héroe</th>
+            <th class="text-center">Detalles</th>
           </tr>
         </thead>
         <tbody >
           <tr v-for="hero in heroes" :key="hero.id">
-            <td><VImg :src="hero.imagen" cover/></td>
-            <td>{{hero.nombre}}</td>
-            <td>{{hero.funcion}}</td>
-            <td>{{hero.titulo}}</td>
-            <td v-if="typeof(hero.ataque)!=='object'">{{hero.ataque}}</td>
-            <td v-else>
-              <p v-for="key in Object.keys(hero.ataque)" :key="key">{{key}}:{{hero.ataque[key]}}</p>
+            <td class="pa-3">
+              <VImg :src="hero.imagen" height="5rem" width="5rem" class="d-block mx-auto rounded-circle" cover/>
+              <p class="text-center">{{hero.nombre}}</p>
+            </td>
+            <td>
+              <VBtn color="blue" class="d-block w-25 mx-auto pa-3" :to="`/heroes/${hero.id}`">Detalle</VBtn>
             </td>
           </tr>
         </tbody>
@@ -60,5 +60,6 @@ const heroes=computed(()=>store.state.heroes)
 .body{
   overflow-y: auto;
   height: 50vh;
+  width:50vw;
 }
 </style>

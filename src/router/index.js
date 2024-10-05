@@ -18,6 +18,15 @@ const router = createRouter({
       component: () => import("../views/HeroesView.vue"),
     },
     {
+      path: "/heroes/:id",
+      name: "hero",
+      props: true,
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/HeroView.vue"),
+    },
+    {
       path: "/:catchAll(.*)*",
       name: "NotFound",
       // route level code-splitting
