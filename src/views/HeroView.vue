@@ -1,18 +1,29 @@
 <script setup>
-import {defineProps,computed} from 'vue';
+import {computed} from 'vue';
 import { useStore } from 'vuex';
-const store =useStore()
+import {useRouter} from 'vue-router';
+
+const store =useStore();
+const router=useRouter();
 const prop=defineProps({
     id:{
         typeof:String,
         require:true
     }
 });
-const mail='ar@hj'
+const mail=computed(()=>store.getters.GET_MAIL)
 const hero = computed(()=> store.getters.GET_HERO(prop.id))
+const logout=()=>{
+    store.dispatch('logout');
+    router.push('/')
+}
+if(hero.value==undefined){
+    logout();
+    router.push('/');
+}
 </script>
 <template>
-    <VContainer class="bg-info my-5">
+    <VContainer v-if="hero" class="bg-info my-5">
         <h3 class="ms-3 text-yellow-darken-3">Bienvenido {{mail}}</h3>
         <h3 class="text-center  my-1 text-yellow-darken-3">Aquí puedes ver los detalles del héroe seleccionado</h3>
         <VCard class="mx-auto my-3 w-50 bg-shades-white">
@@ -41,6 +52,8 @@ const hero = computed(()=> store.getters.GET_HERO(prop.id))
                 </div>
             </VCardItem>
         </VCard>
+
+    <VBtn color="blue-darken-4" class="d-block w-25 mx-auto" @click="logout">logout</VBtn>
     </VContainer>
 </template>
 <style scoped>

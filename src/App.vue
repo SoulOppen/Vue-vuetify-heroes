@@ -14,7 +14,7 @@ import { RouterView} from 'vue-router';
     <v-main class="v-main">
       <RouterView />
     </v-main>
-    <v-footer color="blue-darken-4">
+    <v-footer color="blue-darken-4 pa-5">
       <v-row align="center" justify="center">Bienvenido a Vuatify</v-row>
     </v-footer>
   </v-app>

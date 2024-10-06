@@ -2,10 +2,16 @@
 import { ref,computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import img from'@/utils'
+import { useRouter } from 'vue-router';
 const store=useStore();
+const router=useRouter();
 const imagen=ref(img)
 const heroes=computed(()=>store.state.heroes)
 const fetchDoc=()=>store.dispatch('fetchFire')
+const logout=()=>{
+  store.dispatch('logout')
+  router.push('/')
+}
 onMounted(
  ()=>fetchDoc()
 )
@@ -37,11 +43,12 @@ onMounted(
               <p class="text-center">{{hero.nombre}}</p>
             </td>
             <td>
-              <VBtn color="blue" class="d-block w-25 mx-auto pa-3" :to="`/heroes/${hero.id}`">Detalle</VBtn>
+              <VBtn color="blue" class="d-flex justify-center align-center w-25 mx-auto" :to="`/heroes/${hero.id}`">Detalle</VBtn>
             </td>
           </tr>
         </tbody>
       </VTable>
+      <VBtn color="info" class="w-25 mx-auto" @click="logout">logout</VBtn>
     </VContainer>
   </div>
 </template>

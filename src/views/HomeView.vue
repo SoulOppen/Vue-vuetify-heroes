@@ -1,5 +1,6 @@
 <script setup>
 import img from'@/utils'
+
 </script>
 
 <template>
