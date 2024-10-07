@@ -5,6 +5,7 @@ import vue from "@vitejs/plugin-vue";
 import { createVuetify } from "vuetify";
 
 export default defineConfig({
+  base: "/Vue-vuetify-heroes/",
   plugins: [vue(), createVuetify()],
   resolve: {
     alias: {
